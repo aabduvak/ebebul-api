@@ -19,7 +19,7 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    identity_number = models.IntegerField(unique=True, blank=True)
+    identity_number = models.IntegerField(unique=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     birthdate = models.DateField(auto_now_add=True)
     weight = models.IntegerField(blank=True, null=True)
@@ -33,6 +33,7 @@ class User(models.Model):
     
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
+        self.save()
 
     def check_password(self, raw_password):
         return check_password(raw_password, self.password)
