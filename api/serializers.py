@@ -1,11 +1,10 @@
 from rest_framework import serializers
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 
 from .models import User
-from .permissions import IsOwnerOrReadOnly
 
 class UserSerializer(serializers.ModelSerializer):
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated]
     class Meta:
         model = User
         exclude = ('is_staff', 'is_superuser', 'is_active', )
@@ -14,7 +13,6 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create(**validated_data)
         user.set_password(validated_data.get('password'))
         return user
-    
     
     def update(self, instance, validated_data):
         instance.set_password(validated_data.get('password'))
