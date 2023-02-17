@@ -1,15 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-
-class Category(models.Model):
-    name = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        verbose_name = "Category"
-        verbose_name_plural = "Categories"
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -26,9 +16,10 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, password, **extra_fields)
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     MALE = 'M'
     FEMALE = 'F'
+    
     GENDER_CHOICES = (
         (MALE, 'Male'),
         (FEMALE, 'Female'),
@@ -37,17 +28,19 @@ class User(AbstractBaseUser):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
-    identity_number = models.IntegerField(null=True, blank=True)
+    
+    identity_number = models.CharField(null=True, blank=True, max_length=11)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    birth_date = models.DateField(auto_now_add=True)
+    birth_date = models.DateField()
     weight = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
     address = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     
+    last_login = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'

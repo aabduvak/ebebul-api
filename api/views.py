@@ -11,7 +11,6 @@ class UserAPIViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
 
-
 #class UserAPIUpdateViewSet(mixins.UpdateModelMixin,
 #			   viewsets.GenericViewSet):
 #	queryset = User.objects.all()

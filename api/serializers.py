@@ -1,13 +1,13 @@
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 
-from .models import User
+from .models import User, Group
 
 class UserSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
     class Meta:
         model = User
-        exclude = ('is_staff', 'is_superuser', 'is_active', )
+        exclude = ('is_staff', 'is_superuser', 'is_active', 'groups', 'user_permissions')
         extra_kwargs = {'password': {'write_only': True}}
     
     def update(self, instance, validated_data):
