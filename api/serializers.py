@@ -8,12 +8,17 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = ('is_staff', 'is_superuser', 'is_active', )
-    
-    def create(self, validated_data):
-        user = User.objects.create(**validated_data)
-        user.set_password(validated_data.get('password'))
-        return user
+        extra_kwargs = {'password': {'write_only': True}}
     
     def update(self, instance, validated_data):
-        instance.set_password(validated_data.get('password'))
+        password = validated_data.pop('password', None)
+
+        # Call the parent class's update() method to update the other fields
+        instance = super().update(instance, validated_data)
+
+        # If the password field is present in the request, encrypt it and save it to the instance
+        if password is not None:
+            instance.set_password(password)
+            instance.save()
+        
         return instance
