@@ -1,11 +1,12 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework import mixins
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import generics
 
 from .models import User
 from .serializers import UserSerializer, AuthTokenSerializer
@@ -15,6 +16,14 @@ class UserAPIViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
 
+class UserCreateView(generics.CreateAPIView):
+	queryset = User.objects.all()
+	serializer_class = UserSerializer
+	permission_classes = [AllowAny]
+	
+# /users/
+# /auth/users/
+
 #class UserAPIUpdateViewSet(mixins.UpdateModelMixin,
 #			   viewsets.GenericViewSet):
 #	queryset = User.objects.all()
@@ -23,29 +32,29 @@ class UserAPIViewSet(viewsets.ModelViewSet):
 
 class AuthToken(ObtainAuthToken):
 
-    serializer_class = AuthTokenSerializer
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data, context={'request': request})
-        if serializer.is_valid():
-            token = serializer.save()
-            return Response({'auth_token': token})
-        return Response({'auth_token': None}, status=401)
+	serializer_class = AuthTokenSerializer
+	def post(self, request, *args, **kwargs):
+		serializer = self.serializer_class(data=request.data, context={'request': request})
+		if serializer.is_valid():
+			token = serializer.save()
+			return Response({'auth_token': token})
+		return Response({'auth_token': None}, status=401)
 
 class RemoveAuthToken(APIView):
-    """
-    View for removing the auth token of the current user
-    """
-    permission_classes = [IsAuthenticated]
+	"""
+	View for removing the auth token of the current user
+	"""
+	permission_classes = [IsAuthenticated]
 
-    def post(self, request, *args, **kwargs):
-        try:
-            # Get the auth token associated with the current user's session
-            token = Token.objects.get(user=request.user)
+	def post(self, request, *args, **kwargs):
+		try:
+			# Get the auth token associated with the current user's session
+			token = Token.objects.get(user=request.user)
 
-            # Delete the auth token
-            token.delete()
+			# Delete the auth token
+			token.delete()
 
-            return Response({'message': 'Auth token successfully removed.'}, status=200)
-        except Token.DoesNotExist:
-            # If the token doesn't exist, return an error message
-            return Response({'message': 'No auth token found for the current user.'}, status=400)
+			return Response({'message': 'Auth token successfully removed.'}, status=200)
+		except Token.DoesNotExist:
+			# If the token doesn't exist, return an error message
+			return Response({'message': 'No auth token found for the current user.'}, status=400)
