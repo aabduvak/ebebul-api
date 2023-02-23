@@ -1,6 +1,4 @@
 from rest_framework import viewsets
-from rest_framework.decorators import action
-from rest_framework import mixins
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
@@ -10,11 +8,11 @@ from rest_framework import generics
 
 from .models import User
 from .serializers import UserSerializer, AuthTokenSerializer
-from .permissions import IsOwnerOrReadOnly
 
 class UserAPIViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
+	permission_classes = [IsAdminUser]
 
 class UserCreateView(generics.CreateAPIView):
 	queryset = User.objects.all()
@@ -64,31 +62,15 @@ class UserRUDView(APIView):
 			# If the token doesn't exist, return an error message
 			return Response({'message': 'No auth token found for the current user.'}, status=400)
 		
-	
+	def patch(self, request):
+		token = Token.objects.get(user=request.user)
 		
-#class UserDeleteView(generics.DestroyAPIView):
-#	queryset = User.objects.all()
-#	serializer_class = UserSerializer
-#	permission_classes = [IsAuthenticated, IsAdminUser]
+		instance = token.user
+		serializer = UserSerializer(instance, data=request.data, partial=True)
+		serializer.is_valid(raise_exception=True)
+		serializer.save()
 
-#class UserPartialUpdateView(generics.UpdateAPIView):
-#	queryset = User.objects.all()
-#	serializer_class = UserSerializer
-#	permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
-
-#class UserRetrieveView(generics.RetrieveAPIView):
-#	queryset = User.objects.all()
-#	serializer_class = UserSerializer
-#	permission_classes = [IsAuthenticated]
-
-# /users/
-# /auth/users/
-
-#class UserAPIUpdateViewSet(mixins.UpdateModelMixin,
-#			   viewsets.GenericViewSet):
-#	queryset = User.objects.all()
-#	serializer_class = UserSerializer
-#	permission_classes = [IsOwnerOrReadOnly]
+		return Response(serializer.data)
 
 class AuthToken(ObtainAuthToken):
 

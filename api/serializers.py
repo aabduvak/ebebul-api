@@ -76,10 +76,7 @@ class UserSerializer(serializers.ModelSerializer):
             password=validated_data['password'],
             gender=validated_data['gender'],
             birth_date=validated_data['birth_date'],
-            address=validated_data['address'],
-            #height=validated_data['height'],
-            #weight=validated_data['weight'],
-            #identity_number=validated_data['identity_number']
+            address=validated_data['address']
         )
         
         if user:
