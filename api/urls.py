@@ -5,6 +5,8 @@ from rest_framework.routers import SimpleRouter
 router = SimpleRouter()
 router.register(r'users', UserAPIViewSet, basename='user')
 router.register(r'videos', VideoAPIViewSet, basename='video')
+router.register(r'hospitals', HospitalAPIViewSet, basename='hospital')
+
 urlpatterns = [
     path('', include(router.urls)),
     path('auth/token/login/', AuthToken.as_view()),

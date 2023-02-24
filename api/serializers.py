@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth import authenticate
 
-from .models import User, Video
+from .models import User, Video, Hospital
 
 @receiver(post_save, sender=User)
 def set_default_group(sender, instance, created, **kwargs):
@@ -88,4 +88,10 @@ class VideoSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
     class Meta:
         model = Video
+        fields = '__all__'
+
+class HospitalSerializer(serializers.ModelSerializer):
+    permission_classes = [IsAuthenticated]
+    class Meta:
+        model = Hospital
         fields = '__all__'

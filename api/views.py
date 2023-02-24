@@ -6,8 +6,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics, mixins
 
-from .models import User, Video
-from .serializers import UserSerializer, AuthTokenSerializer, VideoSerializer
+from .models import User, Video, Hospital
+from .serializers import UserSerializer, AuthTokenSerializer, VideoSerializer, HospitalSerializer
 
 class UserAPIViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.all()
@@ -22,6 +22,12 @@ class VideoAPIViewSet(mixins.ListModelMixin,
 	serializer_class = VideoSerializer
 	permission_classes = [IsAuthenticated]
 
+class HospitalAPIViewSet(mixins.ListModelMixin,
+					  mixins.RetrieveModelMixin,
+                      viewsets.GenericViewSet):
+	queryset = Hospital.objects.all()
+	serializer_class = HospitalSerializer
+	permission_classes = [IsAuthenticated]
 
 class UserCreateView(generics.CreateAPIView):
 	queryset = User.objects.all()
