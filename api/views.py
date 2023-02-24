@@ -4,7 +4,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import generics
+from rest_framework import generics, mixins
 
 from .models import User, Video
 from .serializers import UserSerializer, AuthTokenSerializer, VideoSerializer
@@ -15,15 +15,13 @@ class UserAPIViewSet(viewsets.ModelViewSet):
 	permission_classes = [IsAdminUser]
 
 
-class VideoAPIView(generics.ListAPIView):
+class VideoAPIViewSet(mixins.ListModelMixin,
+					  mixins.RetrieveModelMixin,
+                      viewsets.GenericViewSet):
 	queryset = Video.objects.all()
 	serializer_class = VideoSerializer
 	permission_classes = [IsAuthenticated]
 
-class VideoDetailView(generics.RetrieveAPIView):
-	queryset = Video.objects.all()
-	serializer_class = VideoSerializer
-	permission_classes = [IsAuthenticated]
 
 class UserCreateView(generics.CreateAPIView):
 	queryset = User.objects.all()
