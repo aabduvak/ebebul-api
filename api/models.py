@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -54,3 +54,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def has_module_perms(self, app_label):
         return True
+    
+class Video(models.Model):
+    name = models.CharField(max_length=255)
+    url = models.URLField(max_length=255)
+    description = models.TextField()
+
+    def __str__(self):
+        return f"{self.name} | {self.url}"

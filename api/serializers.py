@@ -7,13 +7,12 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth import authenticate
 
-from .models import User
+from .models import User, Video
 
 @receiver(post_save, sender=User)
 def set_default_group(sender, instance, created, **kwargs):
     if created:
         instance.groups.add(Group.objects.get(name='User'))
-
 
 class AuthTokenSerializer(serializers.Serializer):
     """
@@ -83,3 +82,10 @@ class UserSerializer(serializers.ModelSerializer):
             user.set_password(user.password)
             user.save()
         return user
+
+
+class VideoSerializer(serializers.ModelSerializer):
+    permission_classes = [IsAuthenticated]
+    class Meta:
+        model = Video
+        fields = '__all__'

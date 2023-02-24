@@ -6,13 +6,24 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
 
-from .models import User
-from .serializers import UserSerializer, AuthTokenSerializer
+from .models import User, Video
+from .serializers import UserSerializer, AuthTokenSerializer, VideoSerializer
 
 class UserAPIViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
 	permission_classes = [IsAdminUser]
+
+
+class VideoAPIView(generics.ListAPIView):
+	queryset = Video.objects.all()
+	serializer_class = VideoSerializer
+	permission_classes = [IsAuthenticated]
+
+class VideoDetailView(generics.RetrieveAPIView):
+	queryset = Video.objects.all()
+	serializer_class = VideoSerializer
+	permission_classes = [IsAuthenticated]
 
 class UserCreateView(generics.CreateAPIView):
 	queryset = User.objects.all()
@@ -100,3 +111,4 @@ class RemoveAuthToken(APIView):
 		except Token.DoesNotExist:
 			# If the token doesn't exist, return an error message
 			return Response({'message': 'No auth token found for the current user.'}, status=400)
+
