@@ -38,12 +38,10 @@ class UserRUDView(APIView):
     permission_classes = [IsAuthenticated]
     
     def get(self, request):
-        
         user = User.objects.get(email=request.user.email)
         
         if not user:
             return Response({'error': 'user not found'}, status=404)
-        
         return Response({
             'id': user.id,
             'first_name': user.first_name,
@@ -56,20 +54,12 @@ class UserRUDView(APIView):
             'weight': user.weight,
             'height': user.height,
             'last_login': user.last_login
-            #'groups': user.groups
         }, status=200)
     
     def delete(self, request, *args, **kwargs):
         try:
-            # Get the auth token associated with the current user's session
-            token = Token.objects.get(user=request.user)
-
-            # Delete the user associated with the auth token
-            user = token.user
+            user = request.user
             user.delete()
-
-            # Delete the auth token
-            token.delete()
 
             return Response({'message': 'User successfully deleted.'}, status=200)
         except Token.DoesNotExist:
@@ -77,10 +67,7 @@ class UserRUDView(APIView):
             return Response({'message': 'No auth token found for the current user.'}, status=400)
         
     def patch(self, request):
-        token = Token.objects.get(user=request.user)
-        
-        instance = token.user
-        serializer = UserSerializer(instance, data=request.data, partial=True)
+        serializer = UserSerializer(request.user, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 

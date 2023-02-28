@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from datetime import datetime
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -69,3 +70,33 @@ class Hospital(models.Model):
     
     def __str__(self):
         return self.name
+
+class Content(models.Model):
+    title = models.CharField(max_length=255)
+    text = models.TextField()
+    
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.title
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    text = models.TextField()
+    
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f'{self.title} | {self.user.first_name} {self.user.last_name}'
+
+class VisitRequest(models.Model):
+    visitor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visitor', null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visited')
+    datetime = models.DateTimeField(default=datetime.now())
+    location = models.TextField()
+    
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name} | {self.datetime}'

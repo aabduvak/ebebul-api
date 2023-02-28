@@ -22,5 +22,4 @@ urlpatterns = [
     path('auth/users/me/', UserRUDView.as_view()),
     path('auth/token/login/', AuthTokenPairView.as_view(), name='token_obtain_pair'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    
 ]
