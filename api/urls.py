@@ -8,13 +8,19 @@ from .views import (
     HospitalAPIViewSet,
     UserCreateView,
     UserRUDView,
-    AuthTokenPairView
+    AuthTokenPairView,
+    NotificationAPIViewSet,
+    ContentAPIViewSet,
+    VisitRequestAPIViewSet
 )
 
 router = SimpleRouter()
 router.register(r'users', UserAPIViewSet, basename='user')
 router.register(r'videos', VideoAPIViewSet, basename='video')
 router.register(r'hospitals', HospitalAPIViewSet, basename='hospital')
+router.register(r'notifications', NotificationAPIViewSet, basename='notification')
+router.register(r'contents', ContentAPIViewSet, basename='content')
+router.register(r'visits', VisitRequestAPIViewSet, basename='visit')
 
 urlpatterns = [
     path('', include(router.urls)),

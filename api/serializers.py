@@ -5,7 +5,14 @@ from django.contrib.auth.models import Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from .models import User, Video, Hospital
+from .models import (
+        User, 
+        Video,
+        Hospital,
+        Notification,
+        Content,
+        VisitRequest
+    )
 
 @receiver(post_save, sender=User)
 def set_default_group(sender, instance, created, **kwargs):
@@ -59,4 +66,25 @@ class HospitalSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
     class Meta:
         model = Hospital
+        fields = '__all__'
+
+class NotificationSerializer(serializers.ModelSerializer):
+    permission_classes = [IsAuthenticated]
+    
+    class Meta:
+        model = Notification
+        fields = '__all__'
+
+class ContentSerializer(serializers.ModelSerializer):
+    permission_classes = [IsAuthenticated]
+    
+    class Meta:
+        model = Content
+        fields = '__all__'
+
+class VisitRequestSerializer(serializers.ModelSerializer):
+    permission_classes = [IsAuthenticated]
+    
+    class Meta:
+        model = VisitRequest
         fields = '__all__'

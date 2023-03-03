@@ -6,8 +6,22 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from .models import User, Video, Hospital
-from .serializers import UserSerializer, VideoSerializer, HospitalSerializer
+from .serializers import (
+        UserSerializer, 
+        VideoSerializer, 
+        HospitalSerializer,
+        NotificationSerializer,
+        ContentSerializer,
+        VisitRequestSerializer
+    )
+from .models import (
+        User, 
+        Video,
+        Hospital,
+        Notification,
+        Content,
+        VisitRequest
+    )
 
 class UserAPIViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -19,6 +33,28 @@ class VideoAPIViewSet(mixins.ListModelMixin,
                       viewsets.GenericViewSet):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class NotificationAPIViewSet(mixins.ListModelMixin,
+                      mixins.RetrieveModelMixin,
+                      viewsets.GenericViewSet):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
+    permission_classes = [IsAuthenticated]
+
+class ContentAPIViewSet(mixins.ListModelMixin,
+                      mixins.RetrieveModelMixin,
+                      viewsets.GenericViewSet):
+    queryset = Content.objects.all()
+    serializer_class = ContentSerializer
+    permission_classes = [IsAuthenticated]
+
+class VisitRequestAPIViewSet(mixins.ListModelMixin,
+                      mixins.RetrieveModelMixin,
+                      viewsets.GenericViewSet):
+    queryset = VisitRequest.objects.all()
+    serializer_class = VisitRequestSerializer
     permission_classes = [IsAuthenticated]
 
 class HospitalAPIViewSet(mixins.ListModelMixin,
