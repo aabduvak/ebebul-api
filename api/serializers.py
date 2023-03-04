@@ -38,6 +38,10 @@ class UserSerializer(serializers.ModelSerializer):
             gender=validated_data['gender'],
             birth_date=validated_data['birth_date'],
             address=validated_data['address'],
+            category=validated_data['category'],
+            longitude=validated_data['longitude'],
+            latitude=validated_data['latitude'],
+            marial_status=validated_data['marial_status']
         )
         
         if user:

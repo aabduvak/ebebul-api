@@ -19,8 +19,11 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password=None, **extra_fields):
+        category = Category.objects.get(name='Developer') # fetch the default category
+        extra_fields.setdefault('category', category)
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('category', 1)
         return self.create_user(email, password, **extra_fields)
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -32,6 +35,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         (FEMALE, 'Female'),
     )
     
+    STATUS_CHOICES = (
+        ('M', 'Married'),
+        ('S', 'Single'),
+    )
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=255)
     identity_number = models.CharField(null=True, blank=True, max_length=11)
@@ -40,10 +47,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     weight = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
     address = models.TextField()
-    longitude = models.DecimalField(null=True, max_digits=9, decimal_places=6)
-    latitude = models.DecimalField(null=True, max_digits=9, decimal_places=6)
-    marial_status = models.CharField(null=True, max_length=20)
-    category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=1)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    marial_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
+    
     last_login = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -52,7 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'gender', 'birth_date', 'address', 'password']
+    REQUIRED_FIELDS = ['name', 'gender', 'birth_date', 'address', 'password', 'longitude', 'latitude', 'marial_status']
 
     def __str__(self):
         return f'{self.name} | {self.email}'
