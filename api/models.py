@@ -27,16 +27,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     
     email = models.EmailField(unique=True)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    
+    name = models.CharField(max_length=255)
     identity_number = models.CharField(null=True, blank=True, max_length=11)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     birth_date = models.DateField()
     weight = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
     address = models.TextField()
-    
+    longitude = models.DecimalField(null=True, max_digits=9, decimal_places=6)
+    latitude = models.DecimalField(null=True, max_digits=9, decimal_places=6)
+    marial_status = models.CharField(null=True, max_length=20)
     last_login = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -45,10 +45,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'gender', 'birth_date', 'address', 'password']
+    REQUIRED_FIELDS = ['name', 'gender', 'birth_date', 'address', 'password']
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name} | {self.email}'
+        return f'{self.name} | {self.email}'
 
     def has_perm(self, perm, obj=None):
         return True

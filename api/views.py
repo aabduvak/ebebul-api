@@ -80,8 +80,7 @@ class UserRUDView(APIView):
             return Response({'error': 'user not found'}, status=404)
         return Response({
             'id': user.id,
-            'first_name': user.first_name,
-            'last_name': user.last_name,
+            'name': user.name,
             'email': user.email,
             'birth_date': user.birth_date,
             'address': user.address,
@@ -89,7 +88,10 @@ class UserRUDView(APIView):
             'identity_number': user.identity_number,
             'weight': user.weight,
             'height': user.height,
-            'last_login': user.last_login
+            'last_login': user.last_login,
+            'longitude': user.longitude,
+            'latitude': user.latitude,
+            'marial_status': user.marial_status
         }, status=200)
     
     def delete(self, request, *args, **kwargs):
