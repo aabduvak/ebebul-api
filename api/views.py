@@ -91,7 +91,9 @@ class UserRUDView(APIView):
             'last_login': user.last_login,
             'longitude': user.longitude,
             'latitude': user.latitude,
-            'marial_status': user.marial_status
+            'marial_status': user.marial_status,
+            'category_name': user.category.name,
+            'category_id': user.category.id
         }, status=200)
     
     def delete(self, request, *args, **kwargs):

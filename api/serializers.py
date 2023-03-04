@@ -1,10 +1,6 @@
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 
-from django.contrib.auth.models import Group
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
 from .models import (
         User, 
         Video,
@@ -14,21 +10,16 @@ from .models import (
         VisitRequest
     )
 
-@receiver(post_save, sender=User)
-def set_default_group(sender, instance, created, **kwargs):
-    if created:
-        instance.groups.add(Group.objects.get(name='User'))
-
 class UserSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
     class Meta:
         model = User
-        exclude = ('is_staff', 'is_superuser', 'is_active', 'user_permissions')
+        exclude = ('is_staff', 'is_superuser', 'is_active', 'user_permissions', 'groups')
         extra_kwargs = {'password': {'write_only': True}}
 
     def update(self, instance, validated_data):
         password = validated_data.pop('password', None)
-
+        
         # Call the parent class's update() method to update the other fields
         instance = super().update(instance, validated_data)
 
@@ -46,7 +37,7 @@ class UserSerializer(serializers.ModelSerializer):
             password=validated_data['password'],
             gender=validated_data['gender'],
             birth_date=validated_data['birth_date'],
-            address=validated_data['address']
+            address=validated_data['address'],
         )
         
         if user:

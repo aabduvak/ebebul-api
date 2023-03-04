@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from datetime import datetime
 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -37,6 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     longitude = models.DecimalField(null=True, max_digits=9, decimal_places=6)
     latitude = models.DecimalField(null=True, max_digits=9, decimal_places=6)
     marial_status = models.CharField(null=True, max_length=20)
+    category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=1)
     last_login = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -90,7 +97,7 @@ class Notification(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return f'{self.title} | {self.user.first_name} {self.user.last_name}'
+        return f'{self.title} | {self.user.name}'
 
 class VisitRequest(models.Model):
     visitor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visitor', null=True)
@@ -99,4 +106,4 @@ class VisitRequest(models.Model):
     location = models.TextField()
     
     def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name} | {self.datetime}'
+        return f'{self.user.name} | {self.datetime}'
