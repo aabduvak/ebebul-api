@@ -47,8 +47,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     weight = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
     address = models.TextField()
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=12, decimal_places=9)
+    latitude = models.DecimalField(max_digits=12, decimal_places=9)
     marial_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     
