@@ -10,12 +10,6 @@ You can download Postman App for free by the link below:
 
 [Download Postman | Get Started for Free](https://www.postman.com/downloads/)
 
-## Base Link
-
-All your requests must be sent to link below;
-
-[https://ebebultech.pythonanywhere.com/api/v1/](https://ebebultech.pythonanywhere.com/api/v1/)
-
 ## User Endpoints
 
 `/auth/users/` → create new user | POST
