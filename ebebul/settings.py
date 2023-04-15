@@ -21,7 +21,7 @@ from urllib.parse import urlparse
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Initialise environment variables
 env = environ.Env(DEBUG=(bool, False))
@@ -62,9 +62,7 @@ else:
 SECRET_KEY = env("SECRET_KEY") 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG', default=True)
-
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+DEBUG = env('DEBUG', default=False)
 
 APPENGINE_URL = env("APPENGINE_URL", default=None)
 if APPENGINE_URL:
@@ -142,18 +140,6 @@ WSGI_APPLICATION = 'ebebul.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': DB_NAME,
-#        'USER': DB_USER,
-#        'PASSWORD': DB_PASSWORD,
-#        'HOST': DB_HOST,
-#        'PORT': DB_PORT
-#    }
-#}
-
 
 
 # Password validation

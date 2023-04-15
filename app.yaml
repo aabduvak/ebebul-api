@@ -17,10 +17,11 @@
 # [START django_app]
 # [START gaestd_py_django_app_yaml]
 runtime: python310
+entrypoint: gunicorn -b :$PORT ebebul.wsgi
 
 env_variables:
   # This setting is used in settings.py to configure your ALLOWED_HOSTS
-  # APPENGINE_URL: wired-day-380918.uc.r.appspot.com
+  # APPENGINE_URL: 
 
 handlers:
 # This configures Google App Engine to serve the files in the app's static
