@@ -2,7 +2,14 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from datetime import datetime
 
-class Category(models.Model):
+class BaseAbstractModel(models.Model):
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+class Category(BaseAbstractModel):
     name = models.CharField(max_length=100)
 
     def __str__(self):
@@ -23,7 +30,6 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('category', category)
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('category', 1)
         return self.create_user(email, password, **extra_fields)
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -71,7 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def has_module_perms(self, app_label):
         return True
     
-class Video(models.Model):
+class Video(BaseAbstractModel):
     name = models.CharField(max_length=255)
     url = models.URLField(max_length=255)
     description = models.TextField()
@@ -79,35 +85,29 @@ class Video(models.Model):
     def __str__(self):
         return f"{self.name} | {self.url}"
 
-class Hospital(models.Model):
+class Hospital(BaseAbstractModel):
     name = models.CharField(max_length=255)
     location = models.TextField()
     
     def __str__(self):
         return self.name
 
-class Content(models.Model):
+class Content(BaseAbstractModel):
     title = models.CharField(max_length=255)
     text = models.TextField()
-    
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return self.title
 
-class Notification(models.Model):
+class Notification(BaseAbstractModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     text = models.TextField()
     
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    
     def __str__(self):
         return f'{self.title} | {self.user.name}'
 
-class VisitRequest(models.Model):
+class VisitRequest(BaseAbstractModel):
     visitor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visitor', null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visited')
     datetime = models.DateTimeField(default=datetime.now())
