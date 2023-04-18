@@ -52,6 +52,8 @@ You can download Postman App for free by the link below:
 
 `/contents/<pk:int>/`→ get details of content by ID | GET
 
+`/contents/<pk:int>/file/`→ get content of file by ID | GET
+
 ## Visit Endpoints
 
 `/visits/` → get list of notifications | GET
@@ -365,15 +367,17 @@ Server’s response:
         "id": 1,
         "title": "Hello World",
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus et molestie ac feugiat sed lectus vestibulum mattis. Urna nec tincidunt praesent semper feugiat. Duis ultricies lacus sed turpis. Elementum integer enim neque volutpat ac tincidunt vitae semper quis.",
-        "created": "2023-03-04T13:22:01.418744+03:00",
-        "updated": "2023-03-04T13:22:01.418778+03:00"
+				"file": "https://ebebul.uc.r.appspot.com/files/documents/index.html"
+        "date_created": "2023-04-18T22:04:48.290174+03:00",
+        "date_updated": "2023-04-18T22:04:48.290199+03:00",
     },
     {
         "id": 2,
         "title": "Guten Abend!",
         "text": "Vestibulum lectus mauris ultrices eros in cursus turpis. Velit aliquet sagittis id consectetur purus ut faucibus. Dictum non consectetur a erat nam. Quam adipiscing vitae proin sagittis nisl rhoncus. Egestas integer eget aliquet nibh praesent tristique magna. Felis bibendum ut tristique et egestas. Cras pulvinar mattis nunc sed blandit libero volutpat sed. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique. Et malesuada fames ac turpis.",
-        "created": "2023-03-05T23:03:57.894633+03:00",
-        "updated": "2023-03-05T23:03:57.894683+03:00"
+        "file": "https://ebebul.uc.r.appspot.com/files/documents/index.html"
+				"date_created": "2023-04-18T22:04:48.290174+03:00",
+        "date_updated": "2023-04-18T22:04:48.290199+03:00",
     }
 ]
 ```
@@ -395,9 +399,37 @@ Server’s response:
     "id": 1,
     "title": "Hello World",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus et molestie ac feugiat sed lectus vestibulum mattis. Urna nec tincidunt praesent semper feugiat. Duis ultricies lacus sed turpis. Elementum integer enim neque volutpat ac tincidunt vitae semper quis.",
-    "created": "2023-03-04T13:22:01.418744+03:00",
-    "updated": "2023-03-04T13:22:01.418778+03:00"
+    "file": "https://ebebul.uc.r.appspot.com/files/documents/index.html"
+    "date_created": "2023-04-18T22:04:48.290174+03:00",
+    "date_updated": "2023-04-18T22:04:48.290199+03:00",
 }
+```
+
+**GET** **Request Example**
+
+```bash
+curl -X GET https://..../api/v1/auth/contents/1/file/ # ID of Content
+   -H 'Content-Type: application/json'
+	 -H 'Authorization: Token ${TOKEN}'
+```
+
+Server’s response:
+
+```html
+<!-- Server returns content of uploaded file otherwise 404 error -->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bootstrap demo</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+<body>
+	<h1>Hello, world!</h1>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+</body>
+</html>
 ```
 
 ### Video Requests
@@ -420,13 +452,17 @@ Server’s response:
         "id": 1,
         "name": "New",
         "url": "https://www.youtube.com/watch?v=YxG7PhZ3fb4",
-        "description": "Speed up your Rust code with Rayon"
+        "description": "Speed up your Rust code with Rayon",
+				"date_created": "2023-04-18T22:04:48.290174+03:00",
+		    "date_updated": "2023-04-18T22:04:48.290199+03:00",
     },
     {
         "id": 2,
         "name": "Low Level Learning",
         "url": "https://youtu.be/qWVRJsaUTIg",
-        "description": "Nam at lectus urna duis convallis convallis. Nunc pulvinar sapien et ligula. Lorem ipsum dolor sit amet consectetur. Etiam non quam lacus suspendisse faucibus interdum posuere lorem. Sit amet commodo nulla facilisi nullam vehicula ipsum. Velit scelerisque in dictum non consectetur a. Cursus turpis massa tincidunt dui ut ornare lectus sit. Pellentesque sit amet porttitor eget."
+        "description": "Nam at lectus urna duis convallis convallis. Nunc pulvinar sapien et ligula. Lorem ipsum dolor sit amet consectetur. Etiam non quam lacus suspendisse faucibus interdum posuere lorem. Sit amet commodo nulla facilisi nullam vehicula ipsum. Velit scelerisque in dictum non consectetur a. Cursus turpis massa tincidunt dui ut ornare lectus sit. Pellentesque sit amet porttitor eget.",
+				"date_created": "2023-04-18T22:04:48.290174+03:00",
+		    "date_updated": "2023-04-18T22:04:48.290199+03:00",
     }
 ]
 ```
@@ -448,7 +484,9 @@ Server’s response:
     "id": 2,
     "name": "Low Level Learning",
     "url": "https://youtu.be/qWVRJsaUTIg",
-    "description": "Nam at lectus urna duis convallis convallis. Nunc pulvinar sapien et ligula. Lorem ipsum dolor sit amet consectetur. Etiam non quam lacus suspendisse faucibus interdum posuere lorem. Sit amet commodo nulla facilisi nullam vehicula ipsum. Velit scelerisque in dictum non consectetur a. Cursus turpis massa tincidunt dui ut ornare lectus sit. Pellentesque sit amet porttitor eget."
+    "description": "Nam at lectus urna duis convallis convallis. Nunc pulvinar sapien et ligula. Lorem ipsum dolor sit amet consectetur. Etiam non quam lacus suspendisse faucibus interdum posuere lorem. Sit amet commodo nulla facilisi nullam vehicula ipsum. Velit scelerisque in dictum non consectetur a. Cursus turpis massa tincidunt dui ut ornare lectus sit. Pellentesque sit amet porttitor eget.",
+		"date_created": "2023-04-18T22:04:48.290174+03:00",
+    "date_updated": "2023-04-18T22:04:48.290199+03:00",
 }
 ```
 
@@ -471,12 +509,16 @@ Server’s response:
     {
         "id": 1,
         "name": "Ümraniye Devlet Hastanesi",
-        "location": "Umraniye"
+        "location": "Umraniye",
+				"date_created": "2023-04-18T22:04:48.290174+03:00",
+		    "date_updated": "2023-04-18T22:04:48.290199+03:00",
     },
     {
         "id": 2,
         "name": "Üsküdar Devlet Hastanesi",
-        "location": "Üsküdar"
+        "location": "Üsküdar",
+				"date_created": "2023-04-18T22:04:48.290174+03:00",
+			   "date_updated": "2023-04-18T22:04:48.290199+03:00",
     }
 ]
 ```
@@ -497,7 +539,9 @@ Server’s response:
 {
     "id": 2,
     "name": "Üsküdar Devlet Hastanesi",
-    "location": "Üsküdar"
+    "location": "Üsküdar",
+		"date_created": "2023-04-18T22:04:48.290174+03:00",
+    "date_updated": "2023-04-18T22:04:48.290199+03:00",
 }
 ```
 
@@ -522,14 +566,18 @@ Server’s response:
         "datetime": "2023-03-04T13:14:20+03:00",
         "location": "Virtual Office",
         "visitor": 2, // ID of User
-        "user": 1 // ID of User
+        "user": 1, // ID of User
+				"date_created": "2023-04-18T22:04:48.290174+03:00",
+		    "date_updated": "2023-04-18T22:04:48.290199+03:00",
     },
     {
         "id": 2,
         "datetime": "2023-03-05T22:09:54+03:00",
         "location": "Tashkent",
         "visitor": 2, // ID of User
-        "user": 5 // ID of User
+        "user": 5, // ID of User
+				"date_created": "2023-04-18T22:04:48.290174+03:00",
+		    "date_updated": "2023-04-18T22:04:48.290199+03:00",
     }
 ]
 ```
@@ -552,6 +600,8 @@ Server’s response:
     "datetime": "2023-03-05T22:09:54+03:00",
     "location": "Tashkent",
     "visitor": 2, // ID of User
-    "user": 5 // ID of User
+    "user": 5, // ID of User
+		"date_created": "2023-04-18T22:04:48.290174+03:00",
+    "date_updated": "2023-04-18T22:04:48.290199+03:00",
 }
 ```
