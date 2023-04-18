@@ -62,7 +62,7 @@ else:
 SECRET_KEY = env("SECRET_KEY") 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG', default=True)
+DEBUG = env('DEBUG', default=False)
 
 APPENGINE_URL = env("APPENGINE_URL", default=None)
 if APPENGINE_URL:
@@ -122,9 +122,7 @@ ROOT_URLCONF = 'ebebul.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            BASE_DIR + '/templates'
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -187,8 +185,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'api.User'
 
-MEDIA_ROOT = BASE_DIR + '/uploads'
 MEDIA_URL = '/files/'
+MEDIA_ROOT = '/tmp/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

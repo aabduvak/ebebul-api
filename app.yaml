@@ -22,6 +22,7 @@ entrypoint: gunicorn -b :$PORT ebebul.wsgi
 env_variables:
   # This setting is used in settings.py to configure your ALLOWED_HOSTS
   APPENGINE_URL: ebebul.uc.r.appspot.com
+  DEBUG: False
 
 handlers:
 # This configures Google App Engine to serve the files in the app's static
