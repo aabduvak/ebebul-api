@@ -107,7 +107,7 @@ class Notification(BaseAbstractModel):
     def __str__(self):
         return f'{self.title} | {self.user.name}'
 
-class VisitRequest(BaseAbstractModel):
+class Appointment(BaseAbstractModel):
     visitor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visitor', null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visited')
     datetime = models.DateTimeField(default=datetime.now())

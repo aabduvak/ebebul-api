@@ -11,7 +11,7 @@ from .views import (
     AuthTokenPairView,
     NotificationAPIViewSet,
     ContentAPIViewSet,
-    VisitRequestAPIViewSet
+    AppointmentAPIViewSet
 )
 
 router = SimpleRouter()
@@ -20,7 +20,7 @@ router.register(r'videos', VideoAPIViewSet, basename='video')
 router.register(r'hospitals', HospitalAPIViewSet, basename='hospital')
 router.register(r'notifications', NotificationAPIViewSet, basename='notification')
 router.register(r'contents', ContentAPIViewSet, basename='content')
-router.register(r'visits', VisitRequestAPIViewSet, basename='visit')
+router.register(r'visits', AppointmentAPIViewSet, basename='visit')
 
 urlpatterns = [
     path('', include(router.urls)),

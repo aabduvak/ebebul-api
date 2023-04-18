@@ -7,7 +7,7 @@ from .models import (
         Hospital,
         Notification,
         Content,
-        VisitRequest
+        Appointment
     )
 
 class UserSerializer(serializers.ModelSerializer):
@@ -76,9 +76,9 @@ class ContentSerializer(serializers.ModelSerializer):
         model = Content
         fields = '__all__'
 
-class VisitRequestSerializer(serializers.ModelSerializer):
+class AppointmentSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
     
     class Meta:
-        model = VisitRequest
+        model = Appointment
         fields = '__all__'

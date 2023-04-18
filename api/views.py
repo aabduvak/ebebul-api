@@ -12,7 +12,7 @@ from .serializers import (
         HospitalSerializer,
         NotificationSerializer,
         ContentSerializer,
-        VisitRequestSerializer
+        AppointmentSerializer
     )
 from .models import (
         User, 
@@ -20,7 +20,7 @@ from .models import (
         Hospital,
         Notification,
         Content,
-        VisitRequest
+        Appointment
     )
 
 class UserAPIViewSet(viewsets.ModelViewSet):
@@ -50,11 +50,11 @@ class ContentAPIViewSet(mixins.ListModelMixin,
     serializer_class = ContentSerializer
     permission_classes = [IsAuthenticated]
 
-class VisitRequestAPIViewSet(mixins.ListModelMixin,
+class AppointmentAPIViewSet(mixins.ListModelMixin,
                       mixins.RetrieveModelMixin,
                       viewsets.GenericViewSet):
-    queryset = VisitRequest.objects.all()
-    serializer_class = VisitRequestSerializer
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer
     permission_classes = [IsAuthenticated]
 
 class HospitalAPIViewSet(mixins.ListModelMixin,
