@@ -95,7 +95,8 @@ class Hospital(BaseAbstractModel):
 class Content(BaseAbstractModel):
     title = models.CharField(max_length=255)
     text = models.TextField()
-
+    file = models.FileField(upload_to='documents', null=True)
+    
     def __str__(self):
         return self.title
 

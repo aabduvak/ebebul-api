@@ -11,7 +11,8 @@ from .views import (
     AuthTokenPairView,
     NotificationAPIViewSet,
     ContentAPIViewSet,
-    AppointmentAPIViewSet
+    AppointmentAPIViewSet,
+    ContentFileAPIView
 )
 
 router = SimpleRouter()
@@ -24,6 +25,7 @@ router.register(r'visits', AppointmentAPIViewSet, basename='visit')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('contents/<int:id>/file/', ContentFileAPIView.as_view(), name='content-file'),
     path('auth/users/', UserCreateView.as_view()),
     path('auth/users/me/', UserRUDView.as_view()),
     path('auth/token/login/', AuthTokenPairView.as_view(), name='token_obtain_pair'),

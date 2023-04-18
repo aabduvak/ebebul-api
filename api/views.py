@@ -1,3 +1,4 @@
+
 from rest_framework import viewsets, generics, mixins, status
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 from rest_framework.authtoken.models import Token
@@ -5,6 +6,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.http import HttpResponse
+from django.views import View
+from django.shortcuts import get_object_or_404
 
 from .serializers import (
         UserSerializer, 
@@ -22,6 +26,13 @@ from .models import (
         Content,
         Appointment
     )
+
+class ContentFileAPIView(View):
+    def get(self, request, id):
+        item = get_object_or_404(Content, pk=id)
+        with open(item.file.path, 'r') as f:
+            content = f.read()
+        return HttpResponse(content, content_type='text/html')
 
 class UserAPIViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
