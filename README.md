@@ -77,7 +77,7 @@ Client must sent some required data which listed below
     "gender": "M",// only "F" or "M"
     "birth_date": "2000-12-09", // format YYYY-MM-DD
     "address": "Istanbul", //string
-		"category": 1, // cat ID -> 1 for User, 2 for Nurse
+    "category": 1, // cat ID -> 1 for User, 2 for Nurse
     "longitude": 50.2, // double: 123.456789 | aaa.bbbbbb is valid data
     "latitude": 25.1, // double: 123.456789 | aaa.bbbbbb is valid data
     "marial_status": "S" // "S" -> single, "M" -> maried
