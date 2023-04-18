@@ -268,7 +268,7 @@ After getting `access` and `refresh` token client authenticated successfully and
 ```bash
 curl -X GET https://..../api/v1/auth/users/me/
    -H 'Content-Type: application/json'
-	 -H 'Authorization: Token ${TOKEN}'
+   -H 'Authorization: Token ${TOKEN}'
 ```
 
 Server’s response:
@@ -334,7 +334,7 @@ Server’s response:
 
 ```bash
 curl --location --request DELETE 'https://${BASE_URL}/api/v1/auth/users/me/' \
---header 'Authorization: Token ${TOKEN}'
+     --header 'Authorization: Token ${TOKEN}'
 ```
 
 Server’s response:
@@ -354,7 +354,7 @@ Server’s response:
 ```bash
 curl -X GET https://..../api/v1/auth/contents/
    -H 'Content-Type: application/json'
-	 -H 'Authorization: Token ${TOKEN}'
+   -H 'Authorization: Token ${TOKEN}'
 ```
 
 Server’s response:
@@ -367,7 +367,7 @@ Server’s response:
         "id": 1,
         "title": "Hello World",
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus et molestie ac feugiat sed lectus vestibulum mattis. Urna nec tincidunt praesent semper feugiat. Duis ultricies lacus sed turpis. Elementum integer enim neque volutpat ac tincidunt vitae semper quis.",
-				"file": "https://ebebul.uc.r.appspot.com/files/documents/index.html"
+	"file": "https://ebebul.uc.r.appspot.com/files/documents/index.html"
         "date_created": "2023-04-18T22:04:48.290174+03:00",
         "date_updated": "2023-04-18T22:04:48.290199+03:00",
     },
@@ -376,7 +376,7 @@ Server’s response:
         "title": "Guten Abend!",
         "text": "Vestibulum lectus mauris ultrices eros in cursus turpis. Velit aliquet sagittis id consectetur purus ut faucibus. Dictum non consectetur a erat nam. Quam adipiscing vitae proin sagittis nisl rhoncus. Egestas integer eget aliquet nibh praesent tristique magna. Felis bibendum ut tristique et egestas. Cras pulvinar mattis nunc sed blandit libero volutpat sed. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique. Et malesuada fames ac turpis.",
         "file": "https://ebebul.uc.r.appspot.com/files/documents/index.html"
-				"date_created": "2023-04-18T22:04:48.290174+03:00",
+	"date_created": "2023-04-18T22:04:48.290174+03:00",
         "date_updated": "2023-04-18T22:04:48.290199+03:00",
     }
 ]
@@ -387,7 +387,7 @@ Server’s response:
 ```bash
 curl -X GET https://..../api/v1/auth/contents/1/ # ID of Content
    -H 'Content-Type: application/json'
-	 -H 'Authorization: Token ${TOKEN}'
+   -H 'Authorization: Token ${TOKEN}'
 ```
 
 Server’s response:
@@ -410,7 +410,7 @@ Server’s response:
 ```bash
 curl -X GET https://..../api/v1/auth/contents/1/file/ # ID of Content
    -H 'Content-Type: application/json'
-	 -H 'Authorization: Token ${TOKEN}'
+   -H 'Authorization: Token ${TOKEN}'
 ```
 
 Server’s response:
@@ -439,7 +439,7 @@ Server’s response:
 ```bash
 curl -X GET https://..../api/v1/auth/videos/
    -H 'Content-Type: application/json'
-	 -H 'Authorization: Token ${TOKEN}'
+   -H 'Authorization: Token ${TOKEN}'
 ```
 
 Server’s response:
@@ -453,16 +453,16 @@ Server’s response:
         "name": "New",
         "url": "https://www.youtube.com/watch?v=YxG7PhZ3fb4",
         "description": "Speed up your Rust code with Rayon",
-				"date_created": "2023-04-18T22:04:48.290174+03:00",
-		    "date_updated": "2023-04-18T22:04:48.290199+03:00",
+	"date_created": "2023-04-18T22:04:48.290174+03:00",
+    	"date_updated": "2023-04-18T22:04:48.290199+03:00",
     },
     {
         "id": 2,
         "name": "Low Level Learning",
         "url": "https://youtu.be/qWVRJsaUTIg",
         "description": "Nam at lectus urna duis convallis convallis. Nunc pulvinar sapien et ligula. Lorem ipsum dolor sit amet consectetur. Etiam non quam lacus suspendisse faucibus interdum posuere lorem. Sit amet commodo nulla facilisi nullam vehicula ipsum. Velit scelerisque in dictum non consectetur a. Cursus turpis massa tincidunt dui ut ornare lectus sit. Pellentesque sit amet porttitor eget.",
-				"date_created": "2023-04-18T22:04:48.290174+03:00",
-		    "date_updated": "2023-04-18T22:04:48.290199+03:00",
+	"date_created": "2023-04-18T22:04:48.290174+03:00",
+    	"date_updated": "2023-04-18T22:04:48.290199+03:00",
     }
 ]
 ```
@@ -472,7 +472,7 @@ Server’s response:
 ```bash
 curl -X GET https://..../api/v1/auth/videos/2/ # ID of Video
    -H 'Content-Type: application/json'
-	 -H 'Authorization: Token ${TOKEN}'
+   -H 'Authorization: Token ${TOKEN}'
 ```
 
 Server’s response:
@@ -485,7 +485,7 @@ Server’s response:
     "name": "Low Level Learning",
     "url": "https://youtu.be/qWVRJsaUTIg",
     "description": "Nam at lectus urna duis convallis convallis. Nunc pulvinar sapien et ligula. Lorem ipsum dolor sit amet consectetur. Etiam non quam lacus suspendisse faucibus interdum posuere lorem. Sit amet commodo nulla facilisi nullam vehicula ipsum. Velit scelerisque in dictum non consectetur a. Cursus turpis massa tincidunt dui ut ornare lectus sit. Pellentesque sit amet porttitor eget.",
-		"date_created": "2023-04-18T22:04:48.290174+03:00",
+    "date_created": "2023-04-18T22:04:48.290174+03:00",
     "date_updated": "2023-04-18T22:04:48.290199+03:00",
 }
 ```
@@ -497,7 +497,7 @@ Server’s response:
 ```bash
 curl -X GET https://..../api/v1/auth/hospitals/
    -H 'Content-Type: application/json'
-	 -H 'Authorization: Token ${TOKEN}'
+   -H 'Authorization: Token ${TOKEN}'
 ```
 
 Server’s response:
@@ -510,15 +510,15 @@ Server’s response:
         "id": 1,
         "name": "Ümraniye Devlet Hastanesi",
         "location": "Umraniye",
-				"date_created": "2023-04-18T22:04:48.290174+03:00",
-		    "date_updated": "2023-04-18T22:04:48.290199+03:00",
+	"date_created": "2023-04-18T22:04:48.290174+03:00",
+	"date_updated": "2023-04-18T22:04:48.290199+03:00",
     },
     {
         "id": 2,
         "name": "Üsküdar Devlet Hastanesi",
         "location": "Üsküdar",
-				"date_created": "2023-04-18T22:04:48.290174+03:00",
-			   "date_updated": "2023-04-18T22:04:48.290199+03:00",
+	"date_created": "2023-04-18T22:04:48.290174+03:00",
+	"date_updated": "2023-04-18T22:04:48.290199+03:00",
     }
 ]
 ```
@@ -528,7 +528,7 @@ Server’s response:
 ```bash
 curl -X GET https://..../api/v1/auth/hospitals/2/ # ID of Hospital
    -H 'Content-Type: application/json'
-	 -H 'Authorization: Token ${TOKEN}'
+   -H 'Authorization: Token ${TOKEN}'
 ```
 
 Server’s response:
@@ -540,19 +540,19 @@ Server’s response:
     "id": 2,
     "name": "Üsküdar Devlet Hastanesi",
     "location": "Üsküdar",
-		"date_created": "2023-04-18T22:04:48.290174+03:00",
+    "date_created": "2023-04-18T22:04:48.290174+03:00",
     "date_updated": "2023-04-18T22:04:48.290199+03:00",
 }
 ```
 
-### Visit Requests
+### Appointments
 
 **GET** **Request Example**
 
 ```bash
 curl -X GET https://..../api/v1/auth/visits/
    -H 'Content-Type: application/json'
-	 -H 'Authorization: Token ${TOKEN}'
+   -H 'Authorization: Token ${TOKEN}'
 ```
 
 Server’s response:
@@ -567,8 +567,8 @@ Server’s response:
         "location": "Virtual Office",
         "visitor": 2, // ID of User
         "user": 1, // ID of User
-				"date_created": "2023-04-18T22:04:48.290174+03:00",
-		    "date_updated": "2023-04-18T22:04:48.290199+03:00",
+	"date_created": "2023-04-18T22:04:48.290174+03:00",
+	"date_updated": "2023-04-18T22:04:48.290199+03:00",
     },
     {
         "id": 2,
@@ -576,8 +576,8 @@ Server’s response:
         "location": "Tashkent",
         "visitor": 2, // ID of User
         "user": 5, // ID of User
-				"date_created": "2023-04-18T22:04:48.290174+03:00",
-		    "date_updated": "2023-04-18T22:04:48.290199+03:00",
+	"date_created": "2023-04-18T22:04:48.290174+03:00",
+	"date_updated": "2023-04-18T22:04:48.290199+03:00",
     }
 ]
 ```
@@ -587,7 +587,7 @@ Server’s response:
 ```bash
 curl -X GET https://..../api/v1/auth/visits/2/ # ID of Visit
    -H 'Content-Type: application/json'
-	 -H 'Authorization: Token ${TOKEN}'
+   -H 'Authorization: Token ${TOKEN}'
 ```
 
 Server’s response:
@@ -601,7 +601,7 @@ Server’s response:
     "location": "Tashkent",
     "visitor": 2, // ID of User
     "user": 5, // ID of User
-		"date_created": "2023-04-18T22:04:48.290174+03:00",
+    "date_created": "2023-04-18T22:04:48.290174+03:00",
     "date_updated": "2023-04-18T22:04:48.290199+03:00",
 }
 ```
