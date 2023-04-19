@@ -367,16 +367,14 @@ Server’s response:
         "id": 1,
         "title": "Hello World",
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus et molestie ac feugiat sed lectus vestibulum mattis. Urna nec tincidunt praesent semper feugiat. Duis ultricies lacus sed turpis. Elementum integer enim neque volutpat ac tincidunt vitae semper quis.",
-	"file": "https://ebebul.uc.r.appspot.com/files/documents/index.html"
-        "date_created": "2023-04-18T22:04:48.290174+03:00",
+	"date_created": "2023-04-18T22:04:48.290174+03:00",
         "date_updated": "2023-04-18T22:04:48.290199+03:00",
     },
     {
         "id": 2,
         "title": "Guten Abend!",
         "text": "Vestibulum lectus mauris ultrices eros in cursus turpis. Velit aliquet sagittis id consectetur purus ut faucibus. Dictum non consectetur a erat nam. Quam adipiscing vitae proin sagittis nisl rhoncus. Egestas integer eget aliquet nibh praesent tristique magna. Felis bibendum ut tristique et egestas. Cras pulvinar mattis nunc sed blandit libero volutpat sed. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique. Et malesuada fames ac turpis.",
-        "file": "https://ebebul.uc.r.appspot.com/files/documents/index.html"
-	"date_created": "2023-04-18T22:04:48.290174+03:00",
+        "date_created": "2023-04-18T22:04:48.290174+03:00",
         "date_updated": "2023-04-18T22:04:48.290199+03:00",
     }
 ]
@@ -399,7 +397,6 @@ Server’s response:
     "id": 1,
     "title": "Hello World",
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus et molestie ac feugiat sed lectus vestibulum mattis. Urna nec tincidunt praesent semper feugiat. Duis ultricies lacus sed turpis. Elementum integer enim neque volutpat ac tincidunt vitae semper quis.",
-    "file": "https://ebebul.uc.r.appspot.com/files/documents/index.html"
     "date_created": "2023-04-18T22:04:48.290174+03:00",
     "date_updated": "2023-04-18T22:04:48.290199+03:00",
 }
