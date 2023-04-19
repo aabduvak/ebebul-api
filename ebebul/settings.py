@@ -185,7 +185,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'api.User'
 
-MEDIA_URL = '/files/'
+MEDIA_URL = 'files/'
 MEDIA_ROOT = '/tmp/'
 
 REST_FRAMEWORK = {

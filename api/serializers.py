@@ -74,7 +74,7 @@ class ContentSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Content
-        fields = '__all__'
+        exclude = ('file',)
 
 class AppointmentSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
