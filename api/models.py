@@ -85,9 +85,31 @@ class Video(BaseAbstractModel):
     def __str__(self):
         return f"{self.name} | {self.url}"
 
+class City(BaseAbstractModel):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255)
+    
+    def __str__(self):
+        return self.name
+
+class Discrict(BaseAbstractModel):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255)
+    city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
+    
+    def __str__(self):
+        return f'{self.name} | {self.city}'
+
 class Hospital(BaseAbstractModel):
     name = models.CharField(max_length=255)
-    location = models.TextField()
+    address = models.TextField()
+    phone = models.CharField(max_length=100, null=True)
+    email = models.EmailField(null=True)
+    website = models.URLField(null=True)
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+    discrict = models.ForeignKey(Discrict, on_delete=models.SET_NULL, null=True)
+    longitude = models.DecimalField(max_digits=16, decimal_places=13)
+    latitude = models.DecimalField(max_digits=16, decimal_places=13)
     
     def __str__(self):
         return self.name
@@ -111,7 +133,7 @@ class Notification(BaseAbstractModel):
 class Appointment(BaseAbstractModel):
     visitor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visitor', null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visited')
-    datetime = models.DateTimeField(default=datetime.now())
+    date_created = models.DateTimeField(auto_now_add=True)
     location = models.TextField()
     
     def __str__(self):
