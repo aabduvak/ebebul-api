@@ -3,7 +3,7 @@ from django.conf import settings
 import requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import City, Discrict, Hospital 
+from .models import City, District, Hospital 
 
 
 @csrf_exempt
@@ -49,7 +49,7 @@ class NosyAPI():
             name = data['cityName']
             slug = data['citySlug']
 
-            item = Discrict.objects.create(name=name, slug=slug, city=city)
+            item = District.objects.create(name=name, slug=slug, city=city)
             item.save()
 
         return JsonResponse({'status': 200, 'message': 'ok'})

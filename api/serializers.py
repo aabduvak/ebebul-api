@@ -9,7 +9,7 @@ from .models import (
         Content,
         Appointment,
         City,
-        Discrict
+        District
     )
 
 class UserSerializer(serializers.ModelSerializer):
@@ -96,5 +96,5 @@ class DisctrictSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
     
     class Meta:
-        model = Discrict
+        model = District
         fields = '__all__'

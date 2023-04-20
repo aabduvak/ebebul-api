@@ -28,7 +28,7 @@ from .models import (
         Content,
         Appointment,
         City,
-        Discrict
+        District
     )
 
 from .data import NosyAPI
@@ -172,6 +172,6 @@ class CityViewSet(mixins.ListModelMixin,
 class DistrictViewSet(mixins.ListModelMixin,
                       mixins.RetrieveModelMixin,
                       viewsets.GenericViewSet):
-    queryset = Discrict.objects.all()
+    queryset = District.objects.all()
     serializer_class = DisctrictSerializer
     permission_classes = [IsAuthenticated]

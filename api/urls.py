@@ -14,7 +14,7 @@ from .views import (
     AppointmentAPIViewSet,
     ContentFileAPIView,
     GetCityAPI,
-    GetDisctrictAPI,
+    GetDisctrictAPI, # never use again
     CityViewSet,
     DistrictViewSet
 )
