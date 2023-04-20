@@ -12,7 +12,11 @@ from .views import (
     NotificationAPIViewSet,
     ContentAPIViewSet,
     AppointmentAPIViewSet,
-    ContentFileAPIView
+    ContentFileAPIView,
+    GetCityAPI,
+    GetDisctrictAPI,
+    CityViewSet,
+    DistrictViewSet
 )
 
 router = SimpleRouter()
@@ -22,6 +26,8 @@ router.register(r'hospitals', HospitalAPIViewSet, basename='hospital')
 router.register(r'notifications', NotificationAPIViewSet, basename='notification')
 router.register(r'contents', ContentAPIViewSet, basename='content')
 router.register(r'visits', AppointmentAPIViewSet, basename='visit')
+router.register(r'cities', CityViewSet, basename='city')
+router.register(r'districts', DistrictViewSet, basename='district')
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -30,4 +36,6 @@ urlpatterns = [
     path('auth/users/me/', UserRUDView.as_view()),
     path('auth/token/login/', AuthTokenPairView.as_view(), name='token_obtain_pair'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('update/city/', GetCityAPI.as_view(), name='update-city'),
+    # path('update/district/', GetDisctrictAPI.as_view(), name='update-district'),
 ]

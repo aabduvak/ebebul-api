@@ -7,7 +7,9 @@ from .models import (
         Hospital,
         Notification,
         Content,
-        Appointment
+        Appointment,
+        City,
+        Discrict
     )
 
 class UserSerializer(serializers.ModelSerializer):
@@ -81,4 +83,18 @@ class AppointmentSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Appointment
+        fields = '__all__'
+
+class CitySerializer(serializers.ModelSerializer):
+    permission_classes = [IsAuthenticated]
+    
+    class Meta:
+        model = City
+        fields = '__all__'
+
+class DisctrictSerializer(serializers.ModelSerializer):
+    permission_classes = [IsAuthenticated]
+    
+    class Meta:
+        model = Discrict
         fields = '__all__'

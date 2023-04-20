@@ -16,7 +16,9 @@ from .serializers import (
         HospitalSerializer,
         NotificationSerializer,
         ContentSerializer,
-        AppointmentSerializer
+        AppointmentSerializer,
+        CitySerializer,
+        DisctrictSerializer
     )
 from .models import (
         User, 
@@ -24,8 +26,12 @@ from .models import (
         Hospital,
         Notification,
         Content,
-        Appointment
+        Appointment,
+        City,
+        Discrict
     )
+
+from .data import NosyAPI
 
 class ContentFileAPIView(View):
     def get(self, request, id):
@@ -132,3 +138,40 @@ class AuthTokenPairView(TokenObtainPairView):
             return super().post(request, *args, **kwargs)
         except:
             return Response({'detail':'invalid email or password', 'access': None, 'refresh': None}, status=status.HTTP_401_UNAUTHORIZED)
+
+class GetCityAPI(APIView):
+    def get(self, request):
+        api = NosyAPI()
+        
+        response = api.store_city()
+        
+        return response
+
+
+class GetDisctrictAPI(APIView):
+    def get(self, request):
+        api = NosyAPI()
+        
+        cities = City.objects.all()
+        
+        try:
+            for city in cities:
+                api.store_discrict(city)
+        except:
+            return Response({'status': 500, 'message': 'failed'})
+        return Response({'status': 200, 'message': 'ok'})
+
+
+class CityViewSet(mixins.ListModelMixin,
+                      mixins.RetrieveModelMixin,
+                      viewsets.GenericViewSet):
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
+    permission_classes = [IsAuthenticated]
+    
+class DistrictViewSet(mixins.ListModelMixin,
+                      mixins.RetrieveModelMixin,
+                      viewsets.GenericViewSet):
+    queryset = Discrict.objects.all()
+    serializer_class = DisctrictSerializer
+    permission_classes = [IsAuthenticated]

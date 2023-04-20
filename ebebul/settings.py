@@ -62,7 +62,7 @@ else:
 SECRET_KEY = env("SECRET_KEY") 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG', default=False)
+DEBUG = env('DEBUG', default=True)
 
 NOSY_TOKEN = env('NOSY_TOKEN')
 NOSY_BASE_URL = env('NOSY_BASE_URL')
