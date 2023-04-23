@@ -60,7 +60,7 @@ class VideoSerializer(serializers.ModelSerializer):
         model = Video
         fields = '__all__'
 
-class HospitalSerializer(serializers.ModelSerializer):
+class HospitalListSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
     city_name = serializers.CharField(source='city.name', read_only=True)
     district_name = serializers.CharField(source='discrict.name', read_only=True)
@@ -72,11 +72,20 @@ class HospitalSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
 
-        distance = calculate_distance(data['latitude'], data['longitude'], self.context['user_latitude'], self.context['user_longitude'])
+        if 'user_latitude' in self.context and 'user_longitude' in self.context:
+            distance = calculate_distance(data['latitude'], data['longitude'], self.context['user_latitude'], self.context['user_longitude'])
 
-        data['distance'] = distance
+            data['distance'] = distance
         return data
 
+class HospitalDetailSerializer(serializers.ModelSerializer):
+    permission_classes = [IsAuthenticated]
+    city_name = serializers.CharField(source='city.name', read_only=True)
+    district_name = serializers.CharField(source='discrict.name', read_only=True)
+    
+    class Meta:
+        model = Hospital
+        exclude = ['city', 'discrict']
 
 class NotificationSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]

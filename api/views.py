@@ -15,7 +15,8 @@ from .calc import get_nearest_hospitals
 from .serializers import (
         UserSerializer, 
         VideoSerializer, 
-        HospitalSerializer,
+        HospitalListSerializer,
+        HospitalDetailSerializer,
         NotificationSerializer,
         ContentSerializer,
         AppointmentSerializer,
@@ -76,11 +77,10 @@ class AppointmentAPIViewSet(mixins.ListModelMixin,
     serializer_class = AppointmentSerializer
     permission_classes = [IsAuthenticated]
 
-class HospitalAPIViewSet(mixins.ListModelMixin,
-                      mixins.RetrieveModelMixin,
+class HospitalAPIViewSet(mixins.RetrieveModelMixin,
                       viewsets.GenericViewSet):
     queryset = Hospital.objects.all()
-    serializer_class = HospitalSerializer
+    serializer_class = HospitalDetailSerializer
     permission_classes = [IsAuthenticated]
 
 class UserCreateView(generics.CreateAPIView):
@@ -183,14 +183,14 @@ class CityViewSet(mixins.ListModelMixin,
                       viewsets.GenericViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
     
 class DistrictViewSet(mixins.ListModelMixin,
                       mixins.RetrieveModelMixin,
                       viewsets.GenericViewSet):
     queryset = Discrict.objects.all()
     serializer_class = DisctrictSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
 class NearestHospitalsView(APIView):
     def post(self, request):
@@ -210,7 +210,7 @@ class NearestHospitalsView(APIView):
         # Call the get_nearest_hospitals function to retrieve the nearest hospitals
         hospitals = get_nearest_hospitals(user_latitude, user_longitude)
 
-        serializer = HospitalSerializer(hospitals, many=True, context={'user_latitude': user_latitude, 'user_longitude': user_longitude})
+        serializer = HospitalListSerializer(hospitals, many=True, context={'user_latitude': user_latitude, 'user_longitude': user_longitude})
         
         # Return the list of nearest hospitals in the response
         return Response({'hospitals': serializer.data}, status=200)
