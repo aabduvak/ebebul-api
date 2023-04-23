@@ -12,6 +12,8 @@ from .models import (
         Discrict
     )
 
+from .calc import calculate_distance
+
 class UserSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
     class Meta:
@@ -60,9 +62,21 @@ class VideoSerializer(serializers.ModelSerializer):
 
 class HospitalSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
+    city_name = serializers.CharField(source='city.name', read_only=True)
+    district_name = serializers.CharField(source='discrict.name', read_only=True)
+    
     class Meta:
         model = Hospital
-        fields = '__all__'
+        fields = ['id', 'name', 'address', 'latitude', 'longitude', 'city_name', 'district_name']
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        distance = calculate_distance(data['latitude'], data['longitude'], self.context['user_latitude'], self.context['user_longitude'])
+
+        data['distance'] = distance
+        return data
+
 
 class NotificationSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]

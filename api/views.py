@@ -10,6 +10,8 @@ from django.http import HttpResponse
 from django.views import View
 from django.shortcuts import get_object_or_404
 
+from .calc import get_nearest_hospitals
+
 from .serializers import (
         UserSerializer, 
         VideoSerializer, 
@@ -189,3 +191,26 @@ class DistrictViewSet(mixins.ListModelMixin,
     queryset = Discrict.objects.all()
     serializer_class = DisctrictSerializer
     permission_classes = [IsAuthenticated]
+
+class NearestHospitalsView(APIView):
+    def post(self, request):
+        latitude = request.data.get('latitude')
+        longitude = request.data.get('longitude')
+        
+        if not latitude or not longitude:
+            return Response({'error': 'Latitude and longitude are required.'}, status=400)
+
+        # Convert latitude and longitude to float values
+        try:
+            user_latitude = float(latitude)
+            user_longitude = float(longitude)
+        except ValueError:
+            return Response({'error': 'Invalid latitude or longitude.'}, status=400)
+
+        # Call the get_nearest_hospitals function to retrieve the nearest hospitals
+        hospitals = get_nearest_hospitals(user_latitude, user_longitude)
+
+        serializer = HospitalSerializer(hospitals, many=True, context={'user_latitude': user_latitude, 'user_longitude': user_longitude})
+        
+        # Return the list of nearest hospitals in the response
+        return Response({'hospitals': serializer.data}, status=200)
