@@ -28,7 +28,7 @@ from .models import (
         Content,
         Appointment,
         City,
-        District
+        Discrict
     )
 
 from .data import NosyAPI
@@ -162,6 +162,20 @@ class GetDisctrictAPI(APIView):
         return Response({'status': 200, 'message': 'ok'})
 
 
+class GetHospitalAPI(APIView):
+    def get(self, request):
+        api = NosyAPI()
+        
+        cities = City.objects.all()
+        
+        try:
+            for city in cities:
+                api.store_hospitals(city)
+        except:
+            return Response({'status': 500, 'message': 'failed'})
+        return Response({'status': 200, 'message': 'ok'})
+
+
 class CityViewSet(mixins.ListModelMixin,
                       mixins.RetrieveModelMixin,
                       viewsets.GenericViewSet):
@@ -172,6 +186,6 @@ class CityViewSet(mixins.ListModelMixin,
 class DistrictViewSet(mixins.ListModelMixin,
                       mixins.RetrieveModelMixin,
                       viewsets.GenericViewSet):
-    queryset = District.objects.all()
+    queryset = Discrict.objects.all()
     serializer_class = DisctrictSerializer
     permission_classes = [IsAuthenticated]

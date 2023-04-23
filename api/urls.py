@@ -13,8 +13,9 @@ from .views import (
     ContentAPIViewSet,
     AppointmentAPIViewSet,
     ContentFileAPIView,
-    GetCityAPI,
+    GetCityAPI, # never use again
     GetDisctrictAPI, # never use again
+    GetHospitalAPI, # never use again
     CityViewSet,
     DistrictViewSet
 )
@@ -38,4 +39,5 @@ urlpatterns = [
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # path('update/city/', GetCityAPI.as_view(), name='update-city'),
     # path('update/district/', GetDisctrictAPI.as_view(), name='update-district'),
+    # path('update/hospitals/', GetHospitalAPI.as_view(), name='update-hospitals'),
 ]

@@ -92,7 +92,7 @@ class City(BaseAbstractModel):
     def __str__(self):
         return self.name
 
-class District(BaseAbstractModel):
+class Discrict(BaseAbstractModel):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
     city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
@@ -107,7 +107,7 @@ class Hospital(BaseAbstractModel):
     email = models.EmailField(null=True)
     website = models.URLField(null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
-    discrict = models.ForeignKey(District, on_delete=models.SET_NULL, null=True)
+    discrict = models.ForeignKey(Discrict, on_delete=models.SET_NULL, null=True)
     longitude = models.DecimalField(max_digits=16, decimal_places=13, null=True)
     latitude = models.DecimalField(max_digits=16, decimal_places=13, null=True)
     
