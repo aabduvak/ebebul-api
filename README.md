@@ -30,9 +30,9 @@ You can download Postman App for free by the link below:
 
 ## Hospital Endpoints
 
-`/hospitals/` → get list of hospitals | GET
-
 `/hospitals/<pk:int>/`→ get details of hospital by ID | GET
+
+`/nearest/hospitals`→ get list of nearest hospital | POST
 
 ## Video Endpoints
 
@@ -492,40 +492,9 @@ Server’s response:
 **GET** **Request Example**
 
 ```bash
-curl -X GET https://..../api/v1/auth/hospitals/
+curl -X GET https://..../api/v1/auth/hospitals/53/ # ID of Hospital
    -H 'Content-Type: application/json'
-   -H 'Authorization: Token ${TOKEN}'
-```
-
-Server’s response:
-
-```json
-// Response
-// Status: 200 OK
-[
-    {
-        "id": 1,
-        "name": "Ümraniye Devlet Hastanesi",
-        "location": "Umraniye",
-	"date_created": "2023-04-18T22:04:48.290174+03:00",
-	"date_updated": "2023-04-18T22:04:48.290199+03:00",
-    },
-    {
-        "id": 2,
-        "name": "Üsküdar Devlet Hastanesi",
-        "location": "Üsküdar",
-	"date_created": "2023-04-18T22:04:48.290174+03:00",
-	"date_updated": "2023-04-18T22:04:48.290199+03:00",
-    }
-]
-```
-
-**GET** **Request Example**
-
-```bash
-curl -X GET https://..../api/v1/auth/hospitals/2/ # ID of Hospital
-   -H 'Content-Type: application/json'
-   -H 'Authorization: Token ${TOKEN}'
+	 -H 'Authorization: Token ${TOKEN}'
 ```
 
 Server’s response:
@@ -534,11 +503,151 @@ Server’s response:
 // Response
 // Status: 200 OK
 {
-    "id": 2,
-    "name": "Üsküdar Devlet Hastanesi",
-    "location": "Üsküdar",
-    "date_created": "2023-04-18T22:04:48.290174+03:00",
-    "date_updated": "2023-04-18T22:04:48.290199+03:00",
+    "id": 53,
+    "city_name": "Adana",
+    "district_name": "Saimbeyli",
+    "date_created": "2023-04-23T16:33:40.541130+03:00",
+    "date_updated": "2023-04-23T16:33:40.752697+03:00",
+    "name": "ÖZEL ORTOPEDIA HASTANESİ - ORTOPEDIA ÖZEL SAĞLIK HİZMETLERİ TİC.A.Ş.",
+    "address": "Döşeme Mah. Cumhuriyet Cad. 64 Seyhan, Adana",
+    "phone": "03224327777",
+    "email": "ortopedia@ortopedia.com.tr",
+    "website": "http://www.ortopedia.com.tr",
+    "longitude": "35.3185640000000",
+    "latitude": "36.9950300000000"
+}
+```
+
+**POST** **Request Example**
+
+```bash
+curl -X GET https://..../api/v1/auth/nearest/hospitals # without slash
+   -H 'Content-Type: application/json'
+	 -H 'Authorization: Token ${TOKEN}'
+	 --data-raw '{
+		    "latitude": 41.025717927894824,
+		    "longitude": 28.839039244671888
+	 }'
+```
+
+Body of request
+
+```json
+# User's location
+{
+  "latitude": 41.025717927894824,
+  "longitude": 28.839039244671888
+}
+```
+
+Server’s response: List of **10 nearest hospitals**
+
+```json
+// Response
+// Status: 200 OK
+{
+    "hospitals": [
+        {
+            "id": 1212,
+            "name": "ÖZEL A HASTANESİ - A HOSPITAL SAĞLIK HİZMETLERİ LTD.ŞTİ.",
+            "address": "Kocasinan Merkez Mah. Mahmutbey Cad. 373-375 Bahçelievler, İstanbul",
+            "latitude": "41.0215873384960",
+            "longitude": "28.8392144232450",
+            "city_name": "İstanbul",
+            "district_name": "Bahçelievler",
+            "distance": 0.45953634645655844 # km
+        },
+        {
+            "id": 1189,
+            "name": "ÖZEL İSTANBUL MEDICINE HOSPITAL - EREN SAĞLIK HİZMETLERİ SAN. VE TİC.LTD.ŞTİ.",
+            "address": "Barbaros Mah. Hoca Ahmet Yesevi Cad. 149 Güneşli, Bağcılar, İstanbul",
+            "latitude": "41.0302620656710",
+            "longitude": "28.8387095093220",
+            "city_name": "İstanbul",
+            "district_name": "Bağcılar",
+            "distance": 0.5060423457838605
+        },
+        {
+            "id": 1199,
+            "name": "ÖZEL YENİ UFUK HASTANESİ - SOLMAZ ÖZEL SAĞLIK EĞİTİM HİZMETLERİ TİC.LTD.ŞTİ.",
+            "address": "İnönü Mah. 27. Sok. 4 Bağcılar, İstanbul",
+            "latitude": "41.0329590000000",
+            "longitude": "28.8558010000000",
+            "city_name": "İstanbul",
+            "district_name": "Bağcılar",
+            "distance": 1.620245258446413
+        },
+        {
+            "id": 1194,
+            "name": "ÖZEL HOSPITALIST HASTANESİ - ÖZEL HOSPITALIST BAĞCILAR SAĞLIK HİZMETLERİ SAN.TİC.A.Ş.",
+            "address": "Yavuzselim Mah. Hoca Ahmet Yesevi Cad. 26/A Sok. 5 Bağcılar, İstanbul",
+            "latitude": "41.0345400000000",
+            "longitude": "28.8550550000000",
+            "city_name": "İstanbul",
+            "district_name": "Bağcılar",
+            "distance": 1.6634610308045419
+        },
+        {
+            "id": 1213,
+            "name": "T.C.S.B. İSTANBUL FİZİK TEDAVİ REHABİLİTASYON EĞİTİM VE ARAŞTIRMA HASTANESİ",
+            "address": "Kocasinan Merkez Mah. Karadeniz Cad. 48 Bahçelievler, İstanbul",
+            "latitude": "41.0099161083830",
+            "longitude": "28.8446381032890",
+            "city_name": "İstanbul",
+            "district_name": "Bahçelievler",
+            "distance": 1.8187888707207216
+        },
+        {
+            "id": 1214,
+            "name": "T.C.S.B. İSTANBUL FİZİK TEDAVİ REHABİLİTASYON EĞİTİM VE ARAŞTIRMA HASTANESİ - YENİBOSNA EK HİZMET BİNASI",
+            "address": "Yenibosna Merkez Mah. Ayvaz Cami Sok. 4 Yenibosna Ek Hizmet Binası Bahçelievler, İstanbul",
+            "latitude": "41.0122830000000",
+            "longitude": "28.8234020000000",
+            "city_name": "İstanbul",
+            "district_name": "Bahçelievler",
+            "distance": 1.9881678907611782
+        },
+        {
+            "id": 1195,
+            "name": "ÖZEL YENİ İKLİM HASTANESİ - SOLMAZ ÖZEL SAĞLIK EĞİTİM HİZMETLERİ TİC.LTD.ŞTİ.",
+            "address": "Sancaktepe Mah. 892. Sok. 5 Bağcılar, İstanbul",
+            "latitude": "41.0367029073560",
+            "longitude": "28.8580800172180",
+            "city_name": "İstanbul",
+            "district_name": "Bağcılar",
+            "distance": 2.010690230689927
+        },
+        {
+            "id": 1196,
+            "name": "ÖZEL GÜNEŞLİ ERDEM HASTANESİ - ÇAKMAK ÖZEL SAĞLIK HİZMETLERİ LTD.ŞTİ.",
+            "address": "Güneşli Mah. Fevzi Çakmak Cad. 74 Bağcılar, İstanbul",
+            "latitude": "41.0405530000000",
+            "longitude": "28.8251490000000",
+            "city_name": "İstanbul",
+            "district_name": "Bağcılar",
+            "distance": 2.0195438403242845
+        },
+        {
+            "id": 1208,
+            "name": "T.C.S.B. BAHÇELİEVLER DEVLET HASTANESİ",
+            "address": "Kocasinan Merkez Mah. Karadeniz Cad. 48 Bahçelievler, İstanbul",
+            "latitude": "41.0063053348260",
+            "longitude": "28.8442947804830",
+            "city_name": "İstanbul",
+            "district_name": "Bahçelievler",
+            "distance": 2.20316048238313
+        },
+        {
+            "id": 1211,
+            "name": "SANTE PLUS HOSPİTAL - BEKA SAĞLIK EĞİTİM TIBBİ MALZEMELER TEKSTİL TURİZM GIDA SAN. VE TİC.LTD.ŞTİ.",
+            "address": "Yenibosna Merkez Mah. 29 Ekim Cad. 28 Bahçelievler, İstanbul",
+            "latitude": "41.0122420000000",
+            "longitude": "28.8184760000000",
+            "city_name": "İstanbul",
+            "district_name": "Bahçelievler",
+            "distance": 2.2850793310287014
+        }
+    ]
 }
 ```
 
