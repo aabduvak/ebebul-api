@@ -78,6 +78,22 @@ class HospitalListSerializer(serializers.ModelSerializer):
             data['distance'] = distance
         return data
 
+class MidwifeListSerializer(serializers.ModelSerializer):
+    permission_classes = [IsAuthenticated]
+    
+    class Meta:
+        model = User
+        fields = ['id', 'name', 'address', 'latitude', 'longitude', 'gender', 'email', 'phone']
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        if 'user_latitude' in self.context and 'user_longitude' in self.context:
+            distance = calculate_distance(data['latitude'], data['longitude'], self.context['user_latitude'], self.context['user_longitude'])
+
+            data['distance'] = distance
+        return data
+
 class HospitalDetailSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
     city_name = serializers.CharField(source='city.name', read_only=True)

@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from django.views import View
 from django.shortcuts import get_object_or_404
 
-from .calc import get_nearest_hospitals
+from .calc import get_nearest_data
 
 from .serializers import (
         UserSerializer, 
@@ -21,7 +21,8 @@ from .serializers import (
         ContentSerializer,
         AppointmentSerializer,
         CitySerializer,
-        DisctrictSerializer
+        DisctrictSerializer,
+        MidwifeListSerializer
     )
 from .models import (
         User, 
@@ -200,17 +201,34 @@ class NearestHospitalsView(APIView):
         if not latitude or not longitude:
             return Response({'error': 'Latitude and longitude are required.'}, status=400)
 
-        # Convert latitude and longitude to float values
         try:
             user_latitude = float(latitude)
             user_longitude = float(longitude)
         except ValueError:
             return Response({'error': 'Invalid latitude or longitude.'}, status=400)
 
-        # Call the get_nearest_hospitals function to retrieve the nearest hospitals
-        hospitals = get_nearest_hospitals(user_latitude, user_longitude)
+        hospitals = get_nearest_data(user_latitude, user_longitude, Hospital)
 
         serializer = HospitalListSerializer(hospitals, many=True, context={'user_latitude': user_latitude, 'user_longitude': user_longitude})
         
-        # Return the list of nearest hospitals in the response
+        return Response({'hospitals': serializer.data}, status=200)
+
+class NearestMidwifeView(APIView):
+    def post(self, request):
+        latitude = request.data.get('latitude')
+        longitude = request.data.get('longitude')
+        
+        if not latitude or not longitude:
+            return Response({'error': 'Latitude and longitude are required.'}, status=400)
+
+        try:
+            user_latitude = float(latitude)
+            user_longitude = float(longitude)
+        except ValueError:
+            return Response({'error': 'Invalid latitude or longitude.'}, status=400)
+
+        users = get_nearest_data(user_latitude, user_longitude, User, True)
+
+        serializer = MidwifeListSerializer(users, many=True, context={'user_latitude': user_latitude, 'user_longitude': user_longitude})
+        
         return Response({'hospitals': serializer.data}, status=200)

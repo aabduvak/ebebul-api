@@ -134,7 +134,7 @@ class Migration(migrations.Migration):
                 ('longitude', models.DecimalField(decimal_places=13, max_digits=16, null=True)),
                 ('latitude', models.DecimalField(decimal_places=13, max_digits=16, null=True)),
                 ('city', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='api.city')),
-                ('discrict', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='api.district')),
+                ('discrict', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='api.discrict')),
             ],
             options={
                 'abstract': False,

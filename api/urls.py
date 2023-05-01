@@ -18,7 +18,8 @@ from .views import (
     GetHospitalAPI, # never use again
     CityViewSet,
     DistrictViewSet,
-    NearestHospitalsView
+    NearestHospitalsView,
+    NearestMidwifeView
 )
 
 router = SimpleRouter()
@@ -39,6 +40,7 @@ urlpatterns = [
     path('auth/token/login/', AuthTokenPairView.as_view(), name='token_obtain_pair'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('nearest/hospitals', NearestHospitalsView.as_view(), name='nearest_hospitals'),
+    path('nearest/midwife', NearestMidwifeView.as_view(), name='nearest_midwife')
     # path('update/city/', GetCityAPI.as_view(), name='update-city'),
     # path('update/district/', GetDisctrictAPI.as_view(), name='update-district'),
     # path('update/hospitals/', GetHospitalAPI.as_view(), name='update-hospitals'),
