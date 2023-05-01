@@ -96,6 +96,14 @@ class UserRUDView(APIView):
     def get(self, request):
         user = User.objects.get(email=request.user.email)
         
+        protocol = request.scheme
+
+        # Get the domain name from the request
+        domain = request.META['HTTP_HOST']
+
+        # Construct the base URL using the protocol and domain
+        base_url = f"{protocol}://{domain}"
+        
         if not user:
             return Response({'error': 'user not found'}, status=404)
         return Response({
@@ -112,6 +120,7 @@ class UserRUDView(APIView):
             'longitude': user.longitude,
             'latitude': user.latitude,
             'marial_status': user.marial_status,
+            'profile': base_url + user.photo.url,
             'category_name': user.category.name,
             'category_id': user.category.id
         }, status=200)

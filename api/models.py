@@ -54,6 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     height = models.IntegerField(blank=True, null=True)
     address = models.TextField()
     phone = models.CharField(max_length=30, null=True)
+    photo = models.ImageField(upload_to='profile', null=True)
     longitude = models.DecimalField(max_digits=12, decimal_places=9)
     latitude = models.DecimalField(max_digits=12, decimal_places=9)
     marial_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
